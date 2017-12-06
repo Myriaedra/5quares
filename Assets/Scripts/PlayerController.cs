@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
 		{
 			if (Input.GetKeyDown(keys[i]))
 			{
-				transform.position = portals[i].transform.position;
+				Vector3 portalPosition = portals [i].transform.position;
+				transform.position = new Vector3 (portalPosition.x, transform.position.y, portalPosition.z);
 			}
 		}
 	}

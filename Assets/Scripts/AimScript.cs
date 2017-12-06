@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseShoot : MonoBehaviour {
-	public GameObject bullet;
+public class AimScript: MonoBehaviour {
+	public GameObject aimTarget;
 	// Use this for initialization
 	void Start () {
 		
@@ -11,12 +11,10 @@ public class BaseShoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown (0)) {
-			ShootFn();
-		}
+		AimUpdate ();
 	}
 
-	void ShootFn()
+	void AimUpdate()
 	{
 		Ray myRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 
@@ -25,9 +23,8 @@ public class BaseShoot : MonoBehaviour {
 		if (Physics.Raycast (myRay, out hit)) 
 		{
 			Vector3 aim = hit.point;
-			Vector3 dir = new Vector3 (aim.x - transform.position.x, 0, aim.y - transform.position.z);
-			Instantiate (bullet, transform.position, Quaternion.identity);
+			transform.LookAt(new Vector3 (aim.x, transform.position.y, aim.z));
+			aimTarget.transform.position = new Vector3 (aim.x, aimTarget.transform.position.y, aim.z);
 		}
 	}
-		
 }
